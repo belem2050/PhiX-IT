@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dashboard</title>
+    <!-- request ajax API -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+
+    <!-- libraries : data visualisation -->
+    <script src="https://d3js.org/d3.v3.min.js"></script>  
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/wordcloud.js"></script> 
+
+    <script src="https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.min.js"></script>
+    
+    <!-- stylesheet -->
+    <link rel="stylesheet" type="text/css" href="/static/dashboard.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.css">
+
+    <!-- file JavaScript for instructions -->
+    <script src="/static/mydashboard.js"></script>
+
+  </head>
+
+  <body>
+    <div class="content">
+
+      <header>
+        <div class="header-background"></div>
+        <div class="title">
+          <h1>
+            Detection and prediction of natural catastrophes
+          </h1>
+        </div>
+      </header>
+
+      <main>
+        <div class="chartContainer">
+
+          <div id="actu" class="chart">
+            <div id="forecaster_1_day">
+              <text class="chartTitle">Forecaster</text>
+              <div id="table_weather"></div>
+
+            </div>
+            <div id="Avalanches">
+              <text class="chartTitle">Avalanches</text>
+              <div id="tableauArticles"></div>
+            </div>
+          </div>
+
+          <div id="Flood" class="chart">
+            <text class="chartTitle">Flood</text>
+            <svg></svg>
+          </div>
+
+          <div id="Earthquake" class="chart">
+            <text class="chartTitle">Earthquake</text>
+            <svg></svg>
+          </div>
+
+          <div id="Volcanic_Activity" class="chart">
+            <text class="chartTitle">Volcanic Activity</text>
+            <svg></svg>
+          </div>
+
+        </div>
+      </main>
+    </div>
+
+    <script type="text/javascript">
+      console.log("bonjour");
+      
+      $.ajax({
+          url: "/api/forecaster/",
+          success: display_forecaster
+      });
+
+      console.log("Au revoir");
+      
+      function display_forecaster(result){
+          console.log("Résultat de la requête :", result);
+      }
+   </script>
+
+  </body>
+</html>
