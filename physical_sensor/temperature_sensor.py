@@ -6,7 +6,7 @@ def simulateTemperature():
     return round(random.uniform(-20,40), 1)
 
 
-def getTemperature():
+def getLocalTemperature():
     ser = serial.Serial('COM5')
     ser.flushInput()
     ser_bytes = ser.readline()
@@ -15,7 +15,7 @@ def getTemperature():
 
 
 if __name__ == '__main__':
-    # temperature = getTemperature()
+    # temperature = getLocalTemperature()
     '''works properly when arduino is temperature sensor is connected to arduino and instructions from : 
     https://itsourcecode.com/free-projects/arduino-projects/temperature-monitoring-system-using-arduino-and-python-live-data-plotting/
     are followed, otherwise it's just a simulation '''
