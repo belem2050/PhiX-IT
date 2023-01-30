@@ -8,17 +8,21 @@
 
     <!-- libraries : data visualisation -->
     <script src="https://d3js.org/d3.v3.min.js"></script>  
+    <script src="https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/wordcloud.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script src="https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.min.js"></script>
+    
+    
+    <!-- file JavaScript for instructions -->
+    <script src="/static/mydashboard.js"></script>
     
     <!-- stylesheet -->
     <link rel="stylesheet" type="text/css" href="/static/dashboard.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.css">
 
-    <!-- file JavaScript for instructions -->
-    <script src="/static/mydashboard.js"></script>
+
 
   </head>
 
@@ -35,20 +39,23 @@
       </header>
 
       <main>
+        <div>
+          <canvas id="weather"></canvas>
+        </div>
+        
+
         <div class="chartContainer">
 
-          <div id="actu" class="chart">
-            <div id="forecaster_1_day">
-              <text class="chartTitle">Forecaster</text>
-              <div id="table_weather"></div>
-
-            </div>
-            <div id="Avalanches">
-              <text class="chartTitle">Avalanches</text>
-              <div id="tableauArticles"></div>
-            </div>
+          <div id="weather" class="chart">
+            <text class="chartTitle">Forecaster</text>
+            <svg></svg>
           </div>
-
+          
+          <div id="Avalanches" class="chart">
+            <text class="chartTitle">Avalanches</text>
+            <svg></svg>
+          </div>
+          
           <div id="Flood" class="chart">
             <text class="chartTitle">Flood</text>
             <svg></svg>
@@ -67,21 +74,52 @@
         </div>
       </main>
     </div>
-
+    
+    <!-- API FORECASTER -->
     <script type="text/javascript">
-      console.log("bonjour");
-      
       $.ajax({
           url: "/api/forecaster/",
           success: display_forecaster
       });
-
-      console.log("Au revoir");
       
       function display_forecaster(result){
-          console.log("Résultat de la requête :", result);
+          console.log("forecaster :", result);
       }
    </script>
+
+    <!-- API WEATHER -->
+    <script>
+      $.ajax({
+          url: "/api/weather/",
+          success: weather_graph
+      });
+
+      function weather_graph(result){
+        console.log("Api weather :", result);
+
+        const ctx = document.getElementById('weather');
+
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: result.date,
+            datasets: [{
+              label: 'Temperature',
+              data: result.temp,
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+
+      }
+    </script>
 
   </body>
 </html>

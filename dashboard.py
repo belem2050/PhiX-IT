@@ -2,10 +2,12 @@ import requests # read requête http
 import json # encode and decode JSON
 from flask import Flask, render_template, jsonify # to create our own API
 from flask import Flask, render_template #for the dashboard
+from datetime import datetime
+
 
 #This program create an API localhost that make itself a request of another API: OpenWeatherMap 
 
-API_key="c59628809c75f22f1e9002b0173f3c9b"
+API_key="daf82e45c51760dfd726beb50392e1d7"
 app = Flask(__name__)
 
 
@@ -17,7 +19,7 @@ def forecaster():
     
     city_name = 'Toulouse'
 
-    x = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={city_name}&units=metric&appid={API_key}') # FAKE JSON file
+    x = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={city_name}&units=metric&appid={API_key}') 
     
     current = json.loads(x.text)
     
@@ -40,7 +42,7 @@ def forecaster():
     
     
     #Get the predictions weather of last 5 days
-    y = requests.get(f'https://api.openweathermap.org/data/2.5/forecast?q={city_name}&units=metric&appid={API_key}') # FAKE JSON file
+    y = requests.get(f'https://api.openweathermap.org/data/2.5/forecast?q={city_name}&units=metric&appid={API_key}') 
     
     
     predictions5days = json.loads(y.text)
@@ -72,6 +74,31 @@ def forecaster():
         'unitsTemp': "degrés Celcius"
     }
     return jsonify(dictionnaire)
+
+#Access from a siteweb : http://localhost:5000/api/weather/
+@app.route('/api/weather/')
+def weather():
+
+    city_name = 'Toulouse'
+
+    response = requests.get(f'https://api.openweathermap.org/data/2.5/forecast?q={city_name}&units=metric&appid={API_key}') 
+    content = json.loads(response.content.decode('utf-8'))
+
+    main = content["list"]
+
+    dateList = []
+    tempList = []
+    for i in range(len(main)):
+        timestamp = main[i]["dt"]
+        date = datetime.fromtimestamp(timestamp)
+        temp = main[i]['main']['temp']
+        dateList.append(date)
+        tempList.append(temp)
+    
+    date_temp = {'date' : dateList,
+                 'temp' : tempList}
+
+    return date_temp
 
 # URL : http://localhost:5000/dashboard/
 @app.route('/dashboard/')

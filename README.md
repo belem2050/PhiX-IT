@@ -12,5 +12,10 @@ and open in your browser the next link:
 
 If you want to see the data received, you can acces to :
 
-### API forecaster
-http://localhost:5000/api/forecaster/
+### API weather
+Forecaster 5 days
+http://localhost:5000/api/weather/
+
+
+
+It is preferable to run the localhost on a private browser to avoid problems related to localhost history
