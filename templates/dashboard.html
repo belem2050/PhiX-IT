@@ -3,22 +3,39 @@
   <head>
     <meta charset="UTF-8" />
     <title>Dashboard</title>
+
+    <!-- library  Leaflet for OpenStreetMaps -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin="" />
+
+    <style type="text/css">
+      #map{ 
+          height:400px;
+      }
+    </style>
+    <title>Carte</title>
+
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+
     <!-- request ajax API -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
 
     <!-- libraries : data visualisation -->
     <script src="https://d3js.org/d3.v3.min.js"></script>  
+    <script src="https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/wordcloud.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script src="https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.min.js"></script>
+    
+    
+    <!-- file JavaScript for instructions -->
+    <script src="/static/mydashboard.js"></script>
     
     <!-- stylesheet -->
     <link rel="stylesheet" type="text/css" href="/static/dashboard.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.css">
 
-    <!-- file JavaScript for instructions -->
-    <script src="/static/mydashboard.js"></script>
+
 
   </head>
 
@@ -35,20 +52,23 @@
       </header>
 
       <main>
+        <div>
+          <canvas id="weather"></canvas>
+        </div>
+        
+
         <div class="chartContainer">
 
-          <div id="actu" class="chart">
-            <div id="forecaster_1_day">
-              <text class="chartTitle">Forecaster</text>
-              <div id="table_weather"></div>
-
-            </div>
-            <div id="Avalanches">
-              <text class="chartTitle">Avalanches</text>
-              <div id="tableauArticles"></div>
-            </div>
+          <div id="weather" class="chart">
+            <text class="chartTitle">Forecaster</text>
+            <svg></svg>
           </div>
-
+          
+          <div id="Avalanches" class="chart">
+            <text class="chartTitle">Avalanches</text>
+            <svg></svg>
+          </div>
+          
           <div id="Flood" class="chart">
             <text class="chartTitle">Flood</text>
             <svg></svg>
@@ -65,23 +85,82 @@
           </div>
 
         </div>
+
+        <div id="map">
+        </div>
+
       </main>
     </div>
-
+    
+    <!-- API FORECASTER -->
     <script type="text/javascript">
-      console.log("bonjour");
-      
       $.ajax({
           url: "/api/forecaster/",
           success: display_forecaster
       });
-
-      console.log("Au revoir");
       
       function display_forecaster(result){
-          console.log("Résultat de la requête :", result);
+          console.log("forecaster :", result);
       }
    </script>
+
+    <!-- API WEATHER -->
+    <script>
+      $.ajax({
+          url: "/api/weather/",
+          success: weather_graph
+      });
+
+      function weather_graph(result){
+        console.log("Api weather :", result);
+
+        const ctx = document.getElementById('weather');
+
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: result.date,
+            datasets: [{
+              label: 'Temperature',
+              data: result.temp,
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+
+      }
+    </script>
+
+    <!-- API MAP (SENSORS LOCATION) -->
+    <script type="text/javascript">
+      // Center map (Paris)
+      var lat = 48.852969;
+      var lon = 2.349903;
+      var macarte = null;
+      // Initialisation map
+      function initMap() {
+          // Create an object named 'macarte' and insert it on the HTML element with id 'map'
+          macarte = L.map('map').setView([lat, lon], 11);
+          // Leaflet don't retrive maps (tiles) from a server by default. We have to tell him where we want to pick them up. Here, openstreetmap.fr
+          L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+              attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+              minZoom: 1,
+              maxZoom: 20
+          }).addTo(macarte);
+      }
+      window.onload = function(){
+    // Function of initialization, executed when DOM is mounted
+    initMap(); 
+      var marker = L.marker([lat, lon]).addTo(macarte);
+      };
+    </script>
 
   </body>
 </html>
