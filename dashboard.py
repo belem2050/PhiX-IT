@@ -1,7 +1,7 @@
 import requests # read requête http
 import json # encode and decode JSON
 from flask import Flask, render_template, jsonify # to create our own API
-from flask import Flask, render_template #for the dashboard
+from flask import request #for data input in html
 from datetime import datetime
 
 
@@ -99,6 +99,12 @@ def weather():
                  'temp' : tempList}
 
     return date_temp
+
+# URL : http://localhost:5000/city/
+@app.route('/city/', methods=['GET', 'POST'])
+def city():
+    city = request.form['city']
+    return render_template("dashboard.html")
 
 # URL : http://localhost:5000/dashboard/
 @app.route('/dashboard/')

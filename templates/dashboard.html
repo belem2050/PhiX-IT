@@ -42,6 +42,7 @@
   </head>
 
   <body>
+    
     <div class="content">
 
       <header>
@@ -54,6 +55,14 @@
       </header>
 
       <main>
+        <div class="chartContainer">
+          <form action="/city/" method="POST">
+            City :<br>
+            <input type="text" name="city">
+            <input type="submit" value="Go">
+        </form>
+        </div>
+        
         <div>
           <canvas id="weather"></canvas>
         </div>
