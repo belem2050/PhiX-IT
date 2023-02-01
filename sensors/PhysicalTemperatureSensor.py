@@ -3,10 +3,10 @@ import random
 from sensors.SensorInterface import SensorInterface
 
 
-class PhysicalTemperatureSensorInterface(SensorInterface):
+class PhysicalTemperatureSensor(SensorInterface):
     def __init__(self, city="Toulouse", name="local temperature sensor", sensor_type="physical",
                  simulationMode=True):
-        super(PhysicalTemperatureSensorInterface, self).__init__(city, name, sensor_type)
+        super(PhysicalTemperatureSensor, self).__init__(city, name, sensor_type)
         self.simulationMode = simulationMode
 
     def getLocalTemperature(self):

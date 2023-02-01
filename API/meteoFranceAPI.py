@@ -19,5 +19,6 @@ if __name__ == "__main__":
     print(location)
     print(location[0], location[1])
     print(f"city : {city}\ndetected location = {getExactCityName(city)}\tlatitude = {location[0]}, longitude = {location[1]}")
-    print(getData(location).keys())
+    print(getData(location)['current_weather'].keys())
+    print(getData(location)['hourly'].keys())
 

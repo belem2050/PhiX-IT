@@ -28,6 +28,9 @@ class SetInterface:
     def getName(self):
         return self.name
 
+    def getLocation(self):
+        return self.location
+
     def getSensorList(self):
         return self.sensor_list
 

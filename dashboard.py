@@ -5,6 +5,7 @@ from flask import Flask, render_template #for the dashboard
 from datetime import datetime
 
 from sets.AvalancheSet import AvalancheSet
+from sets.FloodSet import FloodSet
 
 #This program create an API localhost that make itself a request of another API: OpenWeatherMap
 
@@ -13,6 +14,16 @@ app = Flask(__name__)
 
 
 # Create our own API since localhost
+
+# Access from a siteweb : http://localhost:5000/api/flood/
+@app.route('/api/flood/')
+def avalanche():
+    city_name = "Bordeaux"
+    flood_set = FloodSet("avalanche set Bordeaux", city_name)
+
+    flood_risk_dict = flood_set.getFloodRisk()
+    # print(flood_risk_dict)
+    return jsonify(flood_risk_dict)
 
 # Access from a siteweb : http://localhost:5000/api/avalanche/
 @app.route('/api/avalanche/')
@@ -106,8 +117,8 @@ def weather():
         dateList.append(date)
         tempList.append(temp)
     
-    date_temp = {'date' : dateList,
-                 'temp' : tempList}
+    date_temp = {'date': dateList,
+                 'temp': tempList}
 
     return date_temp
 

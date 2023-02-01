@@ -1,12 +1,12 @@
 from sensors.ElevationSensor import ElevationSensor
-from sensors.HumiditySensor import HumiditySensorInterface
-from sensors.PhysicalTemperatureSensor import PhysicalTemperatureSensorInterface
-from sensors.SnowfallSensor import SnowfallSensorInterface
-from sensors.TemperatureSensor import TemperatureSensorInterface
+from sensors.HumiditySensor import HumiditySensor
+from sensors.PhysicalTemperatureSensor import PhysicalTemperatureSensor
+from sensors.SnowfallSensor import SnowfallSensor
+from sensors.TemperatureSensor import TemperatureSensor
 
 if __name__ == "__main__":
     print("\n\n### testing local physical temperature sensor (in simulation mode) ###")
-    local_temperature_sensor = PhysicalTemperatureSensorInterface()
+    local_temperature_sensor = PhysicalTemperatureSensor()
     print(f"local_temperature_sensor.getName() : {local_temperature_sensor.getName()}")
     print(f"local_temperature_sensor.getSensorType() : {local_temperature_sensor.getSensorType()}")
     print(f"local_temperature_sensor.getCity() : {local_temperature_sensor.getCity()}")
@@ -15,7 +15,7 @@ if __name__ == "__main__":
     print(f"local_temperature_sensor.getLocalTemperature() : {local_temperature_sensor.getLocalTemperature()}")
 
     print("\n\n### testing temperature sensor for Mexico City ###")
-    temperature_sensor = TemperatureSensorInterface("Mexico City")
+    temperature_sensor = TemperatureSensor("Mexico City")
     print(f"temperature_sensor.getName() : {temperature_sensor.getName()}")
     print(f"temperature_sensor.getSensorType() : {temperature_sensor.getSensorType()}")
     print(f"temperature_sensor.getCity() : {temperature_sensor.getCity()}")
@@ -24,7 +24,7 @@ if __name__ == "__main__":
     print(f"temperature_sensor.getTemperature() : {temperature_sensor.getTemperature()}")
 
     print("\n\n### testing humidity sensor for Lisbon ###")
-    humidity_sensor = HumiditySensorInterface("Lisbon")
+    humidity_sensor = HumiditySensor("Lisbon")
     print(f"humidity_sensor.getName() : {humidity_sensor.getName()}")
     print(f"humidity_sensor.getSensorType() : {humidity_sensor.getSensorType()}")
     print(f"humidity_sensor.getCity() : {humidity_sensor.getCity()}")
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     print(f"elevation_sensor.getElevation() : {elevation_sensor.getElevation()}")
 
     print("\n\n### testing snowfall sensor for Rovaniemi ###")
-    snowfall_sensor = SnowfallSensorInterface("Rovaniemi")
+    snowfall_sensor = SnowfallSensor("Rovaniemi")
     print(f"snowfall_sensor.getName() : {snowfall_sensor.getName()}")
     print(f"snowfall_sensor.getSensorType() : {snowfall_sensor.getSensorType()}")
     print(f"snowfall_sensor.getCity() : {snowfall_sensor.getCity()}")

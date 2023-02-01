@@ -2,9 +2,9 @@ from API.meteoFranceAPI import getData
 from sensors.SensorInterface import SensorInterface
 
 
-class SnowfallSensorInterface(SensorInterface):
+class SnowfallSensor(SensorInterface):
     def __init__(self, city, name="snowfall sensor", sensor_type="virtual"):
-        super(SnowfallSensorInterface, self).__init__(city, name, sensor_type)
+        super(SnowfallSensor, self).__init__(city, name, sensor_type)
 
     def getSnowFall(self):
         sum_snow_fall = 0
