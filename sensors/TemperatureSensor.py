@@ -8,3 +8,4 @@ class TemperatureSensor(SensorInterface):
 
     def getTemperature(self):
         return getWeatherInfo(self.city)['ActualWeather']['temperature']
+

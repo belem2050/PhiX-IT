@@ -1,13 +1,13 @@
 from sensors.ElevationSensor import ElevationSensor
 from sensors.SnowfallSensor import SnowfallSensor
-from sensors.TemperatureSensor import TemperatureSensor
+from sensors.PhysicalTemperatureSensor import PhysicalTemperatureSensor
 from sets.SetInterface import SetInterface
 
 
 class AvalancheSet(SetInterface):
     def __init__(self, name, city):
         super(AvalancheSet, self).__init__(name, city)
-        self.temperature_sensor = TemperatureSensor(self.city)
+        self.local_temperature_sensor = PhysicalTemperatureSensor(self.city, simulationMode=True)
         self.addSensor(self.temperature_sensor)
         self.elevation_sensor = ElevationSensor(self.city)
         self.addSensor(self.elevation_sensor)
@@ -15,7 +15,7 @@ class AvalancheSet(SetInterface):
         self.addSensor(self.snowfall_sensor)
 
     def getAvalancheRisk(self):
-        temperature = self.temperature_sensor.getTemperature()
+        temperature = self.local_temperature_sensor.getLocalTemperature()
         elevation = self.elevation_sensor.getElevation()
         snow_fall = self.snowfall_sensor.getSnowFall()
 

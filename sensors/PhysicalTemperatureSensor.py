@@ -17,4 +17,4 @@ class PhysicalTemperatureSensor(SensorInterface):
             ser.flushInput()
             ser_bytes = ser.readline()
             decoded_value = float(ser_bytes[0:len(ser_bytes) - 2].decode("utf-8"))
-            return decoded_value
+            return round(decoded_value, 1)
