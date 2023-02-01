@@ -43,6 +43,7 @@ def getWeatherInfo(city_name="Toulouse"):
         'TomorrowWeather': {'temperature': temperatureAverage,
                             'pressure': pressureAverage,
                             'humidity': humidityAverage},
+        'HumidityHistory': predictions5days['list']["main"]['humidity'],
         'unitsTemp': "degrés Celcius"
     }
     return weatherInfo

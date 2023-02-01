@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 # Access from a siteweb : http://localhost:5000/api/flood/
 @app.route('/api/flood/')
-def avalanche():
+def flood():
     city_name = "Bordeaux"
     flood_set = FloodSet("avalanche set Bordeaux", city_name)
 
