@@ -11,8 +11,10 @@ class FloodSet(SetInterface):
     def getFloodRisk(self):
         humidity = self.humidity_sensor.getHumidity()
 
-        if humidity == 100:
+        if humidity > 95:
             flood_risk_message = "Major flooding risk!"
+        elif humidity > 80:
+            flood_risk_message = "Minor flooding risk!"
         else:
             flood_risk_message = "No flooding risk."
 
