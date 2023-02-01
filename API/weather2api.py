@@ -1,7 +1,7 @@
 import requests # lit requête http
 import json # encode et décode JSON
 
-Location = input('post code of city : ')
+Location = input('post code of the city : ')
 Location = "fr."+Location
 APP_KEY="9d0804bd0ac1549985268ca3b72730a0"
 APP_ID = "a6165965"

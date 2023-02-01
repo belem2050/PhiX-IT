@@ -4,8 +4,9 @@ from flask import Flask, render_template, jsonify # to create our own API
 from flask import Flask, render_template #for the dashboard
 from datetime import datetime
 
+from sets.AvalancheSet import AvalancheSet
 
-#This program create an API localhost that make itself a request of another API: OpenWeatherMap 
+#This program create an API localhost that make itself a request of another API: OpenWeatherMap
 
 API_key="daf82e45c51760dfd726beb50392e1d7"
 app = Flask(__name__)
@@ -14,9 +15,16 @@ app = Flask(__name__)
 #Create our own API since localhost
 #Access from a siteweb : http://localhost:5000/api/forecaster/
 
+@app.route()('/avalanche/')
+def avalanche():
+    city_name = "Ax-les-Thermes"
+    avalanche_set = AvalancheSet("avalanche set Ax-les-Thermes", city_name)
+
+    avalanche_risk_dict = avalanche_set.getAvalancheRisk()
+    print(avalanche_risk_dict)
+
 @app.route('/api/forecaster/')
 def forecaster():
-    
     city_name = 'Toulouse'
 
     x = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={city_name}&units=metric&appid={API_key}') 
