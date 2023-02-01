@@ -1,8 +1,8 @@
 from API.meteoFranceAPI import getData
-from SensorInterface import Sensor
+from sensors.SensorInterface import SensorInterface
 
 
-class ElevationSensor(Sensor):
+class ElevationSensor(SensorInterface):
     def __init__(self, city, name="elevation sensor", sensor_type="virtual"):
         super(ElevationSensor, self).__init__(city, name, sensor_type)
 

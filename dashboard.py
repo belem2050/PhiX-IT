@@ -12,17 +12,20 @@ API_key="daf82e45c51760dfd726beb50392e1d7"
 app = Flask(__name__)
 
 
-#Create our own API since localhost
-#Access from a siteweb : http://localhost:5000/api/forecaster/
+# Create our own API since localhost
 
-@app.route()('/avalanche/')
+# Access from a siteweb : http://localhost:5000/api/avalanche/
+@app.route('/api/avalanche/')
 def avalanche():
     city_name = "Ax-les-Thermes"
     avalanche_set = AvalancheSet("avalanche set Ax-les-Thermes", city_name)
 
     avalanche_risk_dict = avalanche_set.getAvalancheRisk()
-    print(avalanche_risk_dict)
+    # print(avalanche_risk_dict)
+    return jsonify(avalanche_risk_dict)
 
+
+# Access from a siteweb : http://localhost:5000/api/forecaster/
 @app.route('/api/forecaster/')
 def forecaster():
     city_name = 'Toulouse'

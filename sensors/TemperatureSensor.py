@@ -1,10 +1,10 @@
 from API.openWeatherMapAPI import getWeatherInfo
-from SensorInterface import Sensor
+from sensors.SensorInterface import SensorInterface
 
 
-class TemperatureSensor(Sensor):
+class TemperatureSensorInterface(SensorInterface):
     def __init__(self, city, name="temperature sensor", sensor_type="virtual"):
-        super(TemperatureSensor, self).__init__(city, name, sensor_type)
+        super(TemperatureSensorInterface, self).__init__(city, name, sensor_type)
 
     def getTemperature(self):
         return getWeatherInfo(self.city)['ActualWeather']['temperature']

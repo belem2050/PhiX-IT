@@ -1,10 +1,10 @@
 from API.meteoFranceAPI import getData
-from SensorInterface import Sensor
+from sensors.SensorInterface import SensorInterface
 
 
-class SnowfallSensor(Sensor):
+class SnowfallSensorInterface(SensorInterface):
     def __init__(self, city, name="snowfall sensor", sensor_type="virtual"):
-        super(SnowfallSensor, self).__init__(city, name, sensor_type)
+        super(SnowfallSensorInterface, self).__init__(city, name, sensor_type)
 
     def getSnowFall(self):
         sum_snow_fall = 0
@@ -12,5 +12,8 @@ class SnowfallSensor(Sensor):
             if snow is not None:
                 sum_snow_fall += snow
         return round(sum_snow_fall, 2)
+
+    def getSnowHistory(self):
+        return getData(self.location)['hourly']['snowfall']
 
 

@@ -1,10 +1,10 @@
 from API.openWeatherMapAPI import getWeatherInfo
-from SensorInterface import Sensor
+from sensors.SensorInterface import SensorInterface
 
 
-class HumiditySensor(Sensor):
+class HumiditySensorInterface(SensorInterface):
     def __init__(self, city, name="humidity sensor", sensor_type="virtual"):
-        super(HumiditySensor, self).__init__(city, name, sensor_type)
+        super(HumiditySensorInterface, self).__init__(city, name, sensor_type)
 
     def getHumidity(self):
         return getWeatherInfo(self.city)['ActualWeather']['humidity']

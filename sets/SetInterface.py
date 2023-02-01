@@ -1,7 +1,7 @@
 from API.locationUtils import convertCityToLocation
 
 
-class Set:
+class SetInterface:
     def __init__(self, name, city):
         self.name = name
         self.city = city

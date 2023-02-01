@@ -1,7 +1,7 @@
 from API.locationUtils import convertCityToLocation, getExactCityName
 
 
-class Sensor:
+class SensorInterface:
 
     def __init__(self, city, name, sensor_type):
         self.name = name

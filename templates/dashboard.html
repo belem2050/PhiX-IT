@@ -91,7 +91,8 @@
 
       </main>
     </div>
-    
+
+
     <!-- API FORECASTER -->
     <script type="text/javascript">
       $.ajax({
@@ -137,6 +138,19 @@
 
       }
     </script>
+
+    <!-- API AVALANCHE -->
+    <script type="text/javascript">
+      $.ajax({
+          url: "/api/avalanche/",
+          success: display_avalanche
+      });
+
+      function display_avalanche(result){
+          console.log("avalanche :", result);
+      }
+   </script>
+
 
     <!-- API MAP (SENSORS LOCATION) -->
     <script type="text/javascript">
