@@ -20,6 +20,6 @@ class FloodSet(SetInterface):
             'location': self.getLocation(),
             "message": flood_risk_message,
             "humidity": humidity,
-            "humidity_history": self.humidity_sensor.getHumidityHistory()
+            # "humidity_history": self.humidity_sensor.getHumidityHistory()
         }
         return flood_risk_dict
