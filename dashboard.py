@@ -23,7 +23,7 @@ def volcanic_activity():
     city_name = "Etna"
     volcanic_activity_set = VolcanicActivitySet("volcanic_activity set Etna", city_name)
 
-    volcanic_activity_risk_dict = volcanic_activity_set.getFloodRisk()
+    volcanic_activity_risk_dict = volcanic_activity_set.getVolcanicActivityRisk()
     # print(volcanic_activity_risk_dict)
     return jsonify(volcanic_activity_risk_dict)
 
@@ -34,7 +34,7 @@ def earthquake():
     city_name = "Grenoble"
     earthquake_set = EarthquakeSet("earthquake set Grenoble", city_name)
 
-    earthquake_risk_dict = earthquake_set.getFloodRisk()
+    earthquake_risk_dict = earthquake_set.getEarthquakeRisk()
     # print(earthquake_risk_dict)
     return jsonify(earthquake_risk_dict)
 
