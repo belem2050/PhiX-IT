@@ -5,7 +5,9 @@ from flask import request #for data input in html
 from datetime import datetime
 
 from sets.AvalancheSet import AvalancheSet
+from sets.EarthquakeSet import EarthquakeSet
 from sets.FloodSet import FloodSet
+from sets.VolcanicActivitySet import VolcanicActivitySet
 
 #This program create an API localhost that make itself a request of another API: OpenWeatherMap
 
@@ -14,6 +16,28 @@ app = Flask(__name__)
 
 
 # Create our own API since localhost
+
+# Access from a siteweb : http://localhost:5000/api/volcanic_activity/
+@app.route('/api/volcanic_activity/')
+def flood():
+    city_name = "Etna"
+    volcanic_activity_set = VolcanicActivitySet("volcanic_activity set Etna", city_name)
+
+    volcanic_activity_risk_dict = volcanic_activity_set.getFloodRisk()
+    # print(volcanic_activity_risk_dict)
+    return jsonify(volcanic_activity_risk_dict)
+
+
+# Access from a siteweb : http://localhost:5000/api/earthquake/
+@app.route('/api/earthquake/')
+def flood():
+    city_name = "Grenoble"
+    earthquake_set = EarthquakeSet("earthquake set Grenoble", city_name)
+
+    earthquake_risk_dict = earthquake_set.getFloodRisk()
+    # print(earthquake_risk_dict)
+    return jsonify(earthquake_risk_dict)
+
 
 # Access from a siteweb : http://localhost:5000/api/flood/
 @app.route('/api/flood/')
@@ -24,6 +48,7 @@ def flood():
     flood_risk_dict = flood_set.getFloodRisk()
     # print(flood_risk_dict)
     return jsonify(flood_risk_dict)
+
 
 # Access from a siteweb : http://localhost:5000/api/avalanche/
 @app.route('/api/avalanche/')
