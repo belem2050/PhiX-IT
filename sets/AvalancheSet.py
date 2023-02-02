@@ -8,7 +8,7 @@ class AvalancheSet(SetInterface):
     def __init__(self, name, city):
         super(AvalancheSet, self).__init__(name, city)
         self.local_temperature_sensor = PhysicalTemperatureSensor(self.city, simulationMode=True)
-        self.addSensor(self.temperature_sensor)
+        self.addSensor(self.local_temperature_sensor)
         self.elevation_sensor = ElevationSensor(self.city)
         self.addSensor(self.elevation_sensor)
         self.snowfall_sensor = SnowfallSensor(self.city)
