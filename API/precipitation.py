@@ -4,7 +4,7 @@ import json
 
  
 
-def getPrecipitation(city_name="Toulouse"):
+def getPrecipitation():
     url = "https://weatherbit-v1-mashape.p.rapidapi.com/forecast/3hourly"
 
     querystring = {"lat":"35.5","lon":"-78.5"}
