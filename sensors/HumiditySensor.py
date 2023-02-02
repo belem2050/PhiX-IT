@@ -10,6 +10,6 @@ class HumiditySensor(SensorInterface):
         return getWeatherInfo(self.city)['ActualWeather']['humidity']
 
     def getHumidityHistory(self):
-        return getWeatherInfo(self.city)['TomorrowWeather']['humidity']
+        return getWeatherInfo(self.city)['HumidityHistory']
 
 
