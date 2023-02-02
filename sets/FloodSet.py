@@ -12,11 +12,12 @@ class FloodSet(SetInterface):
         self.addSensor(self.water_level_sensor)
 
     def getFloodRisk(self):
-        humidity = self.humidity_sensor.getHumidity()
+        water_level = self.water_level_sensor.getWaterLevel()
+        precipitation = self.precipitation_sensor.getPrecipitation()
 
-        if humidity > 95:
+        if water_level == "critical" or (water_level == "high" and precipitation > 10):
             flood_risk_message = "Major flooding risk!"
-        elif humidity > 80:
+        elif water_level == "high":
             flood_risk_message = "Minor flooding risk!"
         else:
             flood_risk_message = "No flooding risk."
@@ -24,7 +25,7 @@ class FloodSet(SetInterface):
         flood_risk_dict = {
             'location': self.getLocation(),
             "message": flood_risk_message,
-            "humidity": humidity,
-            # "humidity_history": self.humidity_sensor.getHumidityHistory()
+            "water_level": water_level,
+            "precipitation": precipitation
         }
         return flood_risk_dict
