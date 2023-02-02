@@ -48,6 +48,14 @@ def getWeatherInfo(city_name="Toulouse"):
     return weatherInfo
 
 
+def getTemperature(city):
+    return getWeatherInfo(city)['ActualWeather']['temperature']
+
+
+def getHumidity(city):
+    return getWeatherInfo(city)['ActualWeather']['humidity']
+
+
 if __name__ == "__main__":
     city = "Paris"
     weatherDetails = getWeatherInfo(city)
