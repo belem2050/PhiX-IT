@@ -63,25 +63,29 @@
         </form>
         </div>
         
-        <div>
-          <canvas id="weather"></canvas>
-        </div>
+        
         
 
         <div class="chartContainer">
 
-          <div id="weather" class="chart">
+          <div id="Weather" class="chart">
             <text class="chartTitle">Forecaster</text>
+            <canvas id="weather"></canvas>
             <svg></svg>
           </div>
           
           <div id="Avalanches" class="chart">
             <text class="chartTitle">Avalanches</text>
-            <svg></svg>
+              <p id="messageAvalanche"></p>
+              <p id="elevationAvalanche"></p>
+              <canvas id="avalanche"></canvas>
           </div>
           
           <div id="Flood" class="chart">
             <text class="chartTitle">Flood</text>
+            <p id="messageFlood"></p>
+            <p id="water_level"></p>
+            <canvas id="flood"></canvas>
             <svg></svg>
           </div>
 
@@ -92,6 +96,8 @@
 
           <div id="Volcanic_Activity" class="chart">
             <text class="chartTitle">Volcanic Activity</text>
+            <p id="messageVolcanicActivity"></p>
+            <p id="volcanic_ground_temperature"></p>
             <svg></svg>
           </div>
 
@@ -159,9 +165,87 @@
 
       function display_avalanche(result){
           console.log("avalanche :", result);
+
+          document.getElementById("messageAvalanche").innerHTML = result.message;
+          document.getElementById("elevationAvalanche").innerHTML = "Elevation : " + result.elevation + " m";
+
+          const ctx = document.getElementById('avalanche');
+
+          new Chart(ctx, {
+            type: 'line',
+            data: {
+              //labels: result.snow_history,
+              datasets: [{
+                label: 'cm',
+                data: result.snow_history,
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+
       }
    </script>
 
+
+    <!-- API FLOOD -->
+    <script type="text/javascript">
+      $.ajax({
+          url: "/api/flood/",
+          success: display_flood
+      });
+
+      function display_flood(result){
+          console.log("flood :", result);
+
+          document.getElementById("messageFlood").innerHTML = result.message;
+          document.getElementById("water_level").innerHTML = result.water_level;
+
+          const ctx = document.getElementById('flood');
+
+          new Chart(ctx, {
+            type: 'line',
+            data: {
+              label: 'hourly',
+              datasets: [{
+                label: 'g.m-3',
+                data: result.humidity_history,
+                borderWidth: 1
+              }]
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+          });
+
+      }
+   </script>
+
+   <!-- API VOLCANIC ACTIVITY -->
+   <script type="text/javascript">
+    $.ajax({
+        url: "/api/volcanic_activity/",
+        success: display_volcanic_activity
+    });
+    
+    function display_volcanic_activity(result){
+        console.log("volcanic_activity :", result);
+
+        document.getElementById("messageVolcanicActivity").innerHTML = result.message;
+        document.getElementById("volcanic_ground_temperature").innerHTML = "Volcanic ground temperature : " + result.volcanic_ground_temperature;
+
+    }
+ </script>
 
     <!-- API MAP (SENSORS LOCATION) -->
     <script>
