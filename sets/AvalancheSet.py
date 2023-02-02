@@ -1,4 +1,5 @@
 from sensors.ElevationSensor import ElevationSensor
+from sensors.SeismicSensor import SeismicSensor
 from sensors.SnowfallSensor import SnowfallSensor
 from sensors.PhysicalTemperatureSensor import PhysicalTemperatureSensor
 from sets.SetInterface import SetInterface
@@ -13,15 +14,18 @@ class AvalancheSet(SetInterface):
         self.addSensor(self.elevation_sensor)
         self.snowfall_sensor = SnowfallSensor(self.city)
         self.addSensor(self.snowfall_sensor)
+        self.seismic_sensor = SeismicSensor(self.city, simulationMode=True)
+        self.addSensor(self.seismic_sensor)
 
     def getAvalancheRisk(self):
         temperature = self.local_temperature_sensor.getLocalTemperature()
         elevation = self.elevation_sensor.getElevation()
         snow_fall = self.snowfall_sensor.getSnowFall()
+        seismic_activity = self.seismic_sensor.getSeismicActivity()
 
         if elevation < 500 or snow_fall == 0:
             avalanche_risk_message = "No avalanche risk"
-        elif elevation > 1200 and snow_fall > 2 and temperature > 0:
+        elif elevation > 1200 and snow_fall > 2 and (temperature > 0 or seismic_activity > 3):
             avalanche_risk_message = "Major avalanche risk"
         else:
             avalanche_risk_message = "Minor avalanche risk"
@@ -35,5 +39,6 @@ class AvalancheSet(SetInterface):
             "elevation": elevation,
             "snow_fall": snow_fall,
             "snow_history": snow_history,
+            "seismic_activity": seismic_activity
         }
         return avalanche_risk_dict
