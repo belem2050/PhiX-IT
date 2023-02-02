@@ -19,7 +19,7 @@ app = Flask(__name__)
 
 # Access from a siteweb : http://localhost:5000/api/volcanic_activity/
 @app.route('/api/volcanic_activity/')
-def flood():
+def volcanic_activity():
     city_name = "Etna"
     volcanic_activity_set = VolcanicActivitySet("volcanic_activity set Etna", city_name)
 
@@ -30,7 +30,7 @@ def flood():
 
 # Access from a siteweb : http://localhost:5000/api/earthquake/
 @app.route('/api/earthquake/')
-def flood():
+def earthquake():
     city_name = "Grenoble"
     earthquake_set = EarthquakeSet("earthquake set Grenoble", city_name)
 
