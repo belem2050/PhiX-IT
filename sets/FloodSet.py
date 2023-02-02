@@ -11,7 +11,7 @@ class FloodSet(SetInterface):
         self.addSensor(self.precipitation_sensor)
         self.water_level_sensor = WaterLevelSensor(self.city, simulationMode=True)
         self.addSensor(self.water_level_sensor)
-        self.humidity_sensor = HumiditySensor(self.city, simulationMode=True)
+        self.humidity_sensor = HumiditySensor(self.city)
         self.addSensor(self.humidity_sensor)
 
     def getFloodRisk(self):
