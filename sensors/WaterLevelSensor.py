@@ -5,6 +5,7 @@ from sensors.SensorInterface import SensorInterface
 class WaterLevelSensor(SensorInterface):
     def __init__(self, city, name="water level sensor", sensor_type="virtual", simulationMode=False):
         super(WaterLevelSensor, self).__init__(city, name, sensor_type)
+        self.simulationMode = simulationMode
         self.simulationCounter = 0
 
     def getWaterLevel(self):
