@@ -1,12 +1,15 @@
-from sensors.HumiditySensor import HumiditySensor
+from sensors.PrecipitationSensor import PrecipitationSensor
+from sensors.WaterLevelSensor import WaterLevelSensor
 from sets.SetInterface import SetInterface
 
 
 class FloodSet(SetInterface):
     def __init__(self, name, city):
         super(FloodSet, self).__init__(name, city)
-        self.humidity_sensor = HumiditySensor(self.city)
-        self.addSensor(self.humidity_sensor)
+        self.precipitation_sensor = PrecipitationSensor(self.city, simulationMode=True)
+        self.addSensor(self.precipitation_sensor)
+        self.water_level_sensor = WaterLevelSensor(self.city, simulationMode=True)
+        self.addSensor(self.water_level_sensor)
 
     def getFloodRisk(self):
         humidity = self.humidity_sensor.getHumidity()
