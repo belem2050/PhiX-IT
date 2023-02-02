@@ -16,11 +16,11 @@ class VolcanicActivitySet(SetInterface):
         volcanic_ground_temperature = self.temperature_sensor.getTemperature()
 
         if seismic_activity > 7 or (seismic_activity > 3 and volcanic_ground_temperature > 30):
-            volcanic_activity_risk_message = "Major earthquake risk!"
+            volcanic_activity_risk_message = "Major volcanic eruption risk!"
         elif seismic_activity > 3 or volcanic_ground_temperature > 30:
-            volcanic_activity_risk_message = "Minor earthquake risk!"
+            volcanic_activity_risk_message = "Minor volcanic eruption risk."
         else:
-            volcanic_activity_risk_message = "No flooding risk."
+            volcanic_activity_risk_message = "No volcanic eruption risk."
 
         volcanic_activity_risk_dict = {
             'location': self.getLocation(),
