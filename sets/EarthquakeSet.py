@@ -1,12 +1,11 @@
 from sensors.SeismicSensor import SeismicSensor
-from sensors.TemperatureSensor import TemperatureSensor
 from sets.SetInterface import SetInterface
 
 
 class EarthquakeSet(SetInterface):
     def __init__(self, name, city):
         super(EarthquakeSet, self).__init__(name, city)
-        self.seismic_sensor = SeismicSensor(self.city)
+        self.seismic_sensor = SeismicSensor(self.city, simulationMode=True)
         self.addSensor(self.seismic_sensor)
 
     def getEarthquakeRisk(self):

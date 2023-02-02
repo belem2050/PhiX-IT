@@ -6,7 +6,7 @@ from sets.SetInterface import SetInterface
 class VolcanicActivitySet(SetInterface):
     def __init__(self, name, city):
         super(VolcanicActivitySet, self).__init__(name, city)
-        self.seismic_sensor = SeismicSensor(self.city)
+        self.seismic_sensor = SeismicSensor(self.city, simulationMode=True)
         self.addSensor(self.seismic_sensor)
         self.temperature_sensor = TemperatureSensor(self.city)
         self.addSensor(self.temperature_sensor)
