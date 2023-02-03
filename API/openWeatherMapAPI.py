@@ -19,9 +19,16 @@ def getWeatherInfo(city_name="Toulouse"):
 
     predictions5days = json.loads(y.text)
 
+    main = predictions5days["list"]
+
     temperatureAverage = 0
     pressureAverage = 0
     humidityAverage = 0
+
+    humidityList = []
+    for i in range(len(main)):
+        humidity = main[i]['main']['humidity']
+        humidityList.append(humidity)
 
     # get the predictions only 1 day (take the 8 first values)
     predictions1day = predictions5days['list'][0:8]
@@ -43,7 +50,7 @@ def getWeatherInfo(city_name="Toulouse"):
         'TomorrowWeather': {'temperature': temperatureAverage,
                             'pressure': pressureAverage,
                             'humidity': humidityAverage},
-        'HumidityHistory': predictions5days['list'][0:40]['main']['humidity'],
+        'HumidityHistory': humidityList,
         # 'HumidityHistory': predictions5days['list']["main"]['humidity'],
         'unitsTemp': "degrés Celcius"
     }
