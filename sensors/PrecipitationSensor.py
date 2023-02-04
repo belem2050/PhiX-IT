@@ -1,4 +1,6 @@
 import random
+
+from API.precipitation import getPrecipitation
 from sensors.SensorInterface import SensorInterface
 
 
@@ -10,7 +12,7 @@ class PrecipitationSensor(SensorInterface):
 
     def getPrecipitation(self):
         if not self.simulationMode:
-            pass
+            return getPrecipitation()
         else:
             # we are going to prioritize no precipitation for the simulation, the rain only occurs sometimes
             if self.simulationCounter == 5:

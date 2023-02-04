@@ -7,7 +7,7 @@ from sets.SetInterface import SetInterface
 class FloodSet(SetInterface):
     def __init__(self, name, city):
         super(FloodSet, self).__init__(name, city)
-        self.precipitation_sensor = PrecipitationSensor(self.city, simulationMode=True)
+        self.precipitation_sensor = PrecipitationSensor(self.city, simulationMode=False)
         self.addSensor(self.precipitation_sensor)
         self.water_level_sensor = WaterLevelSensor(self.city, simulationMode=True)
         self.addSensor(self.water_level_sensor)

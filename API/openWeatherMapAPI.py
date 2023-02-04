@@ -20,7 +20,7 @@ def getWeatherInfo(city_name="Toulouse"):
     y = requests.get(f'https://api.openweathermap.org/data/2.5/forecast?q={city_name}&units=metric&appid={API_key}', verify=False)
 
     predictions5days = json.loads(y.text)
-    
+
     main = predictions5days["list"]
 
     temperatureAverage = 0

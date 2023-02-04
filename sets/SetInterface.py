@@ -36,3 +36,15 @@ class SetInterface:
 
     def getNumberOfSensors(self):
         return self.number_of_sensors
+
+    def getAllSensorNames(self):
+        sensor_names = []
+        for i in range(self.getNumberOfSensors()):
+            sensor_names.append(self.sensor_list[i].getName())
+        return sensor_names
+
+    def getAllLocalisations(self):
+        sensor_locations = []
+        for i in range(self.getNumberOfSensors()):
+            sensor_locations.append(self.sensor_list[i].getName())
+        return sensor_locations
