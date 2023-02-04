@@ -4,19 +4,66 @@ from flask import Flask, render_template, jsonify # to create our own API
 from flask import request #for data input in html
 from datetime import datetime
 
+from sets.AvalancheSet import AvalancheSet
+from sets.EarthquakeSet import EarthquakeSet
+from sets.FloodSet import FloodSet
+from sets.VolcanicActivitySet import VolcanicActivitySet
 
-#This program create an API localhost that make itself a request of another API: OpenWeatherMap 
+#This program create an API localhost that make itself a request of another API: OpenWeatherMap
 
 API_key="daf82e45c51760dfd726beb50392e1d7"
 app = Flask(__name__)
 
 
-#Create our own API since localhost
-#Access from a siteweb : http://localhost:5000/api/forecaster/
+# Create our own API since localhost
 
+# Access from a siteweb : http://localhost:5000/api/volcanic_activity/
+@app.route('/api/volcanic_activity/')
+def volcanic_activity():
+    city_name = "Etna"
+    volcanic_activity_set = VolcanicActivitySet("volcanic_activity set Etna", city_name)
+
+    volcanic_activity_risk_dict = volcanic_activity_set.getVolcanicActivityRisk()
+    # print(volcanic_activity_risk_dict)
+    return jsonify(volcanic_activity_risk_dict)
+
+
+# Access from a siteweb : http://localhost:5000/api/earthquake/
+@app.route('/api/earthquake/')
+def earthquake():
+    city_name = "Toulouse"
+    earthquake_set = EarthquakeSet("earthquake set Toulouse", city_name)
+
+    earthquake_risk_dict = earthquake_set.getEarthquakeRisk()
+    # print(earthquake_risk_dict)
+    return jsonify(earthquake_risk_dict)
+
+
+# Access from a siteweb : http://localhost:5000/api/flood/
+@app.route('/api/flood/')
+def flood():
+    city_name = "Toulouse"
+    flood_set = FloodSet("avalanche set Toulouse", city_name)
+
+    flood_risk_dict = flood_set.getFloodRisk()
+    # print(flood_risk_dict)
+    return jsonify(flood_risk_dict)
+
+
+# Access from a siteweb : http://localhost:5000/api/avalanche/
+@app.route('/api/avalanche/')
+def avalanche():
+    city_name = "Ax-les-Thermes"
+    avalanche_set = AvalancheSet("avalanche set Ax-les-Thermes", city_name)
+
+    avalanche_risk_dict = avalanche_set.getAvalancheRisk()
+    # print(avalanche_risk_dict)
+    return jsonify(avalanche_risk_dict)
+
+
+# Access from a siteweb : http://localhost:5000/api/forecaster/
 @app.route('/api/forecaster/')
 def forecaster():
-    
     city_name = 'Toulouse'
 
     x = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={city_name}&units=metric&appid={API_key}') 
@@ -95,8 +142,8 @@ def weather():
         dateList.append(date)
         tempList.append(temp)
     
-    date_temp = {'date' : dateList,
-                 'temp' : tempList}
+    date_temp = {'date': dateList,
+                 'temp': tempList}
 
     return date_temp
 

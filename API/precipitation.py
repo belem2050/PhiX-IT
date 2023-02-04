@@ -24,10 +24,17 @@ def getPrecipitation():
 
 
 
+def precipi():
+
+    API_key= "c0389a227547a10206fda87a10455d77"
+    x = requests.get(f'https://maps.openweathermap.org/maps/2.0/radar/forecast/6/13/24?&appid={API_key}&tm=1600781400')
+
+    print(x.text)
+    json_data = json.loads(x.text)
     
 
-
 #print(getPrecipitation())
+precipi()
 
 
 
