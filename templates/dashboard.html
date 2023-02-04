@@ -64,7 +64,7 @@
         </div>
         
         
-        
+        <text class="chartTitle">Toulouse, hourly data</text>
 
         <div class="chartContainer">
 
@@ -74,32 +74,37 @@
             <svg></svg>
           </div>
           
-          <div id="Avalanches" class="chart">
-            <text class="chartTitle">Avalanches</text>
-              <p id="messageAvalanche"></p>
-              <p id="elevationAvalanche"></p>
-              <canvas id="avalanche"></canvas>
-          </div>
           
           <div id="Flood" class="chart">
             <text class="chartTitle">Flood</text>
             <p id="messageFlood"></p>
             <p id="water_level"></p>
-            <canvas id="flood"></canvas>
+            <canvas id="flood" width =800 height=350></canvas>
             <svg></svg>
           </div>
 
-          <div id="Earthquake" class="chart">
-            <text class="chartTitle">Earthquake</text>
-            <svg></svg>
+          <div id="Avalanches" class="chart">
+            <text class="chartTitle">Avalanches Ax-les-Thermes</text>
+              <p id="messageAvalanche"></p>
+              <p id="elevationAvalanche"></p>
+              <canvas id="avalanche" width =800 height=350></canvas>
           </div>
 
-          <div id="Volcanic_Activity" class="chart">
-            <text class="chartTitle">Volcanic Activity</text>
-            <p id="messageVolcanicActivity"></p>
-            <p id="volcanic_ground_temperature"></p>
-            <svg></svg>
+          <div class="chart">
+            <div id="Earthquake">
+              <text class="chartTitle">Earthquake Toulouse</text>
+              <p id="messageEarthquake"></p>
+              <p id="seismic_activity"></p>
+              <p> </p>
+            </div>
+  
+            <div id="Volcanic_Activity">
+              <text class="chartTitle">Etna Volcanic Activity</text>
+              <p id="messageVolcanicActivity"></p>
+              <p id="volcanic_ground_temperature"></p>
+            </div>
           </div>
+          
 
         </div>
 
@@ -110,10 +115,12 @@
     </div>
 
 
+
     <!-- API FORECASTER -->
     <script type="text/javascript">
       $.ajax({
           url: "/api/forecaster/",
+          async: false,
           success: display_forecaster
       });
       
@@ -126,7 +133,9 @@
     <script>
       $.ajax({
           url: "/api/weather/",
+          async: false,
           success: weather_graph
+          
       });
 
       function weather_graph(result){
@@ -160,21 +169,24 @@
     <script type="text/javascript">
       $.ajax({
           url: "/api/avalanche/",
-          success: display_avalanche
+          async: false,
+          success: display_avalanche,
+          timeout: 10000 // sets timeout to 5 seconds
       });
+     
 
       function display_avalanche(result){
           console.log("avalanche :", result);
 
-          document.getElementById("messageAvalanche").innerHTML = result.message;
-          document.getElementById("elevationAvalanche").innerHTML = "Elevation : " + result.elevation + " m";
+          document.getElementById("messageAvalanche").innerHTML = "     " + result.message;
+          document.getElementById("elevationAvalanche").innerHTML = "     Elevation : " + result.elevation + " m";
 
           const ctx = document.getElementById('avalanche');
 
           new Chart(ctx, {
             type: 'line',
             data: {
-              //labels: result.snow_history,
+              labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95],
               datasets: [{
                 label: 'cm',
                 data: result.snow_history,
@@ -191,6 +203,7 @@
           });
 
       }
+
    </script>
 
 
@@ -198,21 +211,23 @@
     <script type="text/javascript">
       $.ajax({
           url: "/api/flood/",
-          success: display_flood
+          async: false,
+          success: display_flood,
+          timeout: 10000 // sets timeout to 5 seconds
       });
 
       function display_flood(result){
           console.log("flood :", result);
 
           document.getElementById("messageFlood").innerHTML = result.message;
-          document.getElementById("water_level").innerHTML = result.water_level;
+          document.getElementById("water_level").innerHTML = "Water level: " + result.water_level;
 
           const ctx = document.getElementById('flood');
 
           new Chart(ctx, {
             type: 'line',
             data: {
-              label: 'hourly',
+              labels: result.dateHistory,
               datasets: [{
                 label: 'g.m-3',
                 data: result.humidity_history,
@@ -235,7 +250,9 @@
    <script type="text/javascript">
     $.ajax({
         url: "/api/volcanic_activity/",
-        success: display_volcanic_activity
+        success: display_volcanic_activity,
+        async: false,
+        timeout: 10000 // sets timeout to 5 seconds
     });
     
     function display_volcanic_activity(result){
@@ -247,19 +264,42 @@
     }
  </script>
 
+    <!-- API EARTHQUAKE -->
+    <script type="text/javascript">
+      $.ajax({
+          url: "/api/earthquake/",
+          success: display_earthquake,
+          async: false,
+          timeout: 10000 // sets timeout to 5 seconds
+      });
+      
+      function display_earthquake(result){
+          console.log("earthquake :", result);
+  
+          document.getElementById("messageEarthquake").innerHTML = result.message;
+          document.getElementById("seismic_activity").innerHTML = "Seismic activity : " + result.seismic_activity;
+  
+      }
+   </script>
+  
+
+
     <!-- API MAP (SENSORS LOCATION) -->
     <script>
-
       var sensorsLocation = {
-        "Paris": { "lat": 48.852969, "lon": 2.349903 },
-        "Brest": { "lat": 48.383, "lon": -4.500 },
-        "Quimper": { "lat": 48.000, "lon": -4.100 },
-        "Bayonne": { "lat": 43.500, "lon": -1.467 }
+        "Seismic sensor Etna": { "lat": 37.7510, "lon": 14.9934 },
+        "Humidity sensor Toulouse": { "lat": 43.576, "lon": 1.440  },
+        "Local temperature sensor Toulouse": { "lat": 43.5947, "lon":1.4132 },
+        "Precipitation sensor Toulouse": { "lat": 43.5790, "lon": 1.433732  },
+        "Snowfall sensor Ax-les-Thermes": { "lat": 42.682, "lon":  1.7992  },
+        "Temperature sensor Ax-les-Thermes": { "lat": 42.6764, "lon": 1.81584  },
+        "Water level sensor Toulouse": { "lat": 43.6047, "lon": 1.4442 },
+        "Elevation sensor Ax-les-Thermes": { "lat": 42.7203, "lon": 1.8375 }
       };
       
-      // Center map (Paris)
-      var lat = 48.852969;
-      var lon = 2.349903;
+      // Center map (Toulouse)
+      var lat = 43.6047;
+      var lon = 1.4442;
       var mymap = L.map('map').setView([lat, lon], 11);
       var markers = L.markerClusterGroup();
       var tableMarkers = [];

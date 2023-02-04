@@ -8,7 +8,7 @@ API_key = "c59628809c75f22f1e9002b0173f3c9b"
 
 def getData(location):
     x = requests.get(
-        f'https://api.open-meteo.com/v1/meteofrance?latitude={location[0]}&longitude={location[1]}&hourly=snowfall&daily=snowfall_sum&current_weather=true&timezone=auto')
+        f'https://api.open-meteo.com/v1/meteofrance?latitude={location[0]}&longitude={location[1]}&hourly=snowfall&daily=snowfall_sum&current_weather=true&timezone=auto', verify=False)
     json_data = json.loads(x.text)
     return json_data
 

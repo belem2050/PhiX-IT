@@ -31,8 +31,8 @@ def volcanic_activity():
 # Access from a siteweb : http://localhost:5000/api/earthquake/
 @app.route('/api/earthquake/')
 def earthquake():
-    city_name = "Grenoble"
-    earthquake_set = EarthquakeSet("earthquake set Grenoble", city_name)
+    city_name = "Toulouse"
+    earthquake_set = EarthquakeSet("earthquake set Toulouse", city_name)
 
     earthquake_risk_dict = earthquake_set.getEarthquakeRisk()
     # print(earthquake_risk_dict)
@@ -42,8 +42,8 @@ def earthquake():
 # Access from a siteweb : http://localhost:5000/api/flood/
 @app.route('/api/flood/')
 def flood():
-    city_name = "Bordeaux"
-    flood_set = FloodSet("avalanche set Bordeaux", city_name)
+    city_name = "Toulouse"
+    flood_set = FloodSet("avalanche set Toulouse", city_name)
 
     flood_risk_dict = flood_set.getFloodRisk()
     # print(flood_risk_dict)

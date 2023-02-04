@@ -32,6 +32,7 @@ class FloodSet(SetInterface):
             "water_level": water_level,
             "precipitation": precipitation,
             "humidity": humidity,
-            "humidity_history": self.humidity_sensor.getHumidityHistory()
+            "humidity_history": self.humidity_sensor.getHumidityHistory(),
+            "dateHistory": self.humidity_sensor.getDateHistory()
         }
         return flood_risk_dict
