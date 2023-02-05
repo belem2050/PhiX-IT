@@ -65,6 +65,6 @@ def getWeatherInfo(city_name="Toulouse"):
 
 
 if __name__ == "__main__":
-    city = "Paris"
+    city = "Toulouse"
     weatherDetails = getWeatherInfo(city)
     print(f"Weather for {city} : \n{weatherDetails}")
